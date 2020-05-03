@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1089857552190",
+    "firebase_url": "https://cric-770c5.firebaseio.com",
+    "project_id": "cric-770c5",
+    "storage_bucket": "cric-770c5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1089857552190:android:82b1a834f8935462e0366f",
+        "android_client_info": {
+          "package_name": "com.example.balakrishnaballi.cricboardapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1089857552190-rifsoqur7p5ludnjt0mooo1qmd5huq4f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD2bSPcZVEhyAoT7l3dotoqEQVbnYOG5Wk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1089857552190-rifsoqur7p5ludnjt0mooo1qmd5huq4f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
