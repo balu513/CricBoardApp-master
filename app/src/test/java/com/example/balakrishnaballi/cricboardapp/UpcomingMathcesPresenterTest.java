@@ -7,20 +7,48 @@ import com.example.balakrishnaballi.cricboardapp.network.CricApi;
 import com.example.balakrishnaballi.cricboardapp.mvp.presenter.UpcomingMatchesPresenter;
 import com.example.balakrishnaballi.cricboardapp.mvp.view.view;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
+import io.reactivex.Scheduler;
 import io.reactivex.Single;
+import io.reactivex.android.plugins.RxAndroidPlugins;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.internal.schedulers.ExecutorScheduler;
+import io.reactivex.plugins.RxJavaPlugins;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 public class UpcomingMathcesPresenterTest {
+    @BeforeClass
+    public static void setUpRxSchedulers() {
+        Scheduler immediate = new Scheduler() {
+            @Override
+            public Disposable scheduleDirect(@NonNull Runnable run, long delay, @NonNull TimeUnit unit) {
+                // this prevents StackOverflowErrors when scheduling with a delay
+                return super.scheduleDirect(run, 0, unit);
+            }
 
+            @Override
+            public Worker createWorker() {
+                return new ExecutorScheduler.ExecutorWorker(Runnable::run);
+            }
+        };
+
+        RxJavaPlugins.setInitIoSchedulerHandler(scheduler -> immediate);
+        RxJavaPlugins.setInitComputationSchedulerHandler(scheduler -> immediate);
+        RxJavaPlugins.setInitNewThreadSchedulerHandler(scheduler -> immediate);
+        RxJavaPlugins.setInitSingleSchedulerHandler(scheduler -> immediate);
+        RxAndroidPlugins.setInitMainThreadSchedulerHandler(scheduler -> immediate);
+    }
     /*
     To test Presenter API,we have to comment Android Components so before test we have to comment
     "observeOn(AndroidSchedulers.mainThread())" inside requestUpcomingCricketMatches().
